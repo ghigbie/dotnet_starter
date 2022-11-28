@@ -37,9 +37,9 @@ namespace First_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Character> GetSingle()
+        public ActionResult<Character> GetSingle(int id)
         {
-            return Ok(hobbit);
+            return Ok(characterList.FirstOrDefault(item => item.Id == id));
         }
 
         
