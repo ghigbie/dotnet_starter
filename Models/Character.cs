@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace First_API.Models
 {
-    public class Characater
+    public class Character
     {
         public int Id { get; set; }
         public string Name{ get; set; } = "Frodo";
