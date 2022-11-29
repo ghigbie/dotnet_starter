@@ -36,12 +36,18 @@ namespace First_API.Controllers
             return Ok(characterList);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult<Character> GetSingle(int id)
         {
             return Ok(characterList.FirstOrDefault(item => item.Id == id));
         }
 
+        [HttpPost]
+        public ActionResult<List<Character>> AddCharacter(Character character)
+        {
+            characterList.Add(character);
+            return Ok(characterList);
+        }
         
     }
 }
