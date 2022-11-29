@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using First_API.Services.CharacterService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace First_API.Controllers
@@ -10,43 +11,29 @@ namespace First_API.Controllers
     [Route("api/[controller]")]
     public class CharacterController: ControllerBase
     {
-        private static Character hobbit = new Character();
-        private static Character ranger = new Character()
+        private readonly ICharacterService _characterService;
+        public CharacterController(ICharacterService characterService)
         {
-            Name = "Strider",
-            Class = RpgClass.Ranger,
-        };
-        private static Character dwarf = new Character()
-        {
-            Name = "Gemli",
-            Class = RpgClass.Ranger,
-        };
-
-
-        private static List<Character> characterList = new List<Character>()
-        {
-            hobbit,
-            ranger,
-            dwarf
-        };
+            _characterService = characterService;
+        }
 
         [HttpGet("GetAll")]
         public ActionResult<List<Character>> Get()
         {
-            return Ok(characterList);
+            return Ok(_characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
         public ActionResult<Character> GetSingle(int id)
         {
-            return Ok(characterList.FirstOrDefault(item => item.Id == id));
+            return Ok(_characterService.GetCharacterById(id));
         }
 
         [HttpPost]
         public ActionResult<List<Character>> AddCharacter(Character character)
         {
-            characterList.Add(character);
-            return Ok(characterList);
+ 
+            return Ok(_characterService.AddCharacter(character));
         }
         
     }
