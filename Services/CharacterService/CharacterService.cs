@@ -27,18 +27,18 @@ namespace First_API.Services.CharacterService
         };
 
 
-        public List<Character> AddCharacter(Character character)
+        public async Task<List<Character>> AddCharacter(Character character)
         {
             characterList.Add(character);
             return characterList;
         }
 
-        public List<Character> GetAllCharacters()
+        public async Task<List<Character>> GetAllCharacters()
         {
             return characterList;
         }
 
-        public Character GetCharacterById(int id)
+        public async Task<Character> GetCharacterById(int id)
         {
             return characterList.FirstOrDefault(item => item.Id == id);
         }
