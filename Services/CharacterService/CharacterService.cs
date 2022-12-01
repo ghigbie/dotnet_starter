@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,20 +28,22 @@ namespace First_API.Services.CharacterService
         };
 
 
-        public async Task<List<Character>> AddCharacter(Character character)
+        public async Task<ServiceResponse<List<Character>>> AddCharacter(Character character)
         {
             characterList.Add(character);
-            return characterList;
+            var serviceResponse = new ServiceResponse<List<Character>>();
+            serviceResponse.Data = characterList;
+            return serviceResponse;
         }
 
-        public async Task<List<Character>> GetAllCharacters()
+        public async Task<ServiceResponse<List<Character>>> GetAllCharacters()
         {
-            return characterList;
+            return new ServiceResponse<List<Character>>(){ Data = characterList };
         }
 
-        public async Task<Character> GetCharacterById(int id)
+        public async Task<ServiceResponse<Character>> GetCharacterById(int id)
         {
-            return characterList.FirstOrDefault(item => item.Id == id);
+            return new ServiceResponse<Character>() { Data = characterList.FirstOrDefault(item => item.Id == id) };
         }
     }
 }
